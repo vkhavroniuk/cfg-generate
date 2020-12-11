@@ -1,0 +1,38 @@
+conf t
+hostname {{ name }}
+ip domain-name {{domain}}
+{% if not domain_lookup %}no {% endif %}ip domain-lookup
+
+router ospf {{ospf_id}}
+router-id {{ router_id }}
+passive-interface default
+{% for interface in interfaces %}
+{% if interface.ospf_mode=='active' %}no passive-interface {{interface.name}}
+{% endif %}
+{% endfor %}
+
+
+{% for interface in interfaces %}
+!
+interface {{ interface.name }} 
+ {% if 'mtu' in interface %}
+ mtu {{ interface.mtu }}
+ {% endif %}
+ {% if 'descr' in interface %}
+ description {{ interface.descr }}
+ {% endif %}
+ ip address {{interface.address}}
+{% if 'ospf_area' in interface%}
+ ip ospf {{ospf_id}} area {{ interface.ospf_area }}
+ {% if not 'Loopback' in interface.name %}
+ ip ospf network point-to-point
+ {% endif %}
+{% endif %}
+{% if interface.status=='up' %} no{% endif %} shutdown
+{% endfor %}
+
+{% for route in routes %}
+ip route {{route.route}}
+{% endfor %}
+end
+

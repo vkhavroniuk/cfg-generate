@@ -1,0 +1,98 @@
+Border:
+ name: Border
+ ospf_id: 100
+ domain: homelab.local
+ domain_lookup: false
+ router_id: 10.0.0.1
+ 
+ interfaces:
+  - name: Loopback0
+    address: 10.0.0.1 255.255.255.255
+    ospf_area: 0
+    status: up
+  - name: GigabitEthernet1 
+    mtu: 2000
+    descr: "Edge1-Gi1"
+    address: 10.1.1.1 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+  - name: GigabitEthernet2 
+    mtu: 2000
+    descr: "Edge2-Gi1"
+    address: 10.1.1.5 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+  - name: GigabitEthernet3
+    mtu: 2000
+    descr: "CP-Gi3"
+    address: 10.1.1.9 255.255.255.252
+    ospf_mode: active
+    ospf_area: 0
+    status: up
+
+ routes:
+   - route: 172.16.10.0 255.255.255.0 10.1.0.1
+   - route: 172.16.20.0 255.255.255.0 10.1.0.2
+   - route: 0.0.0.0 0.0.0.0 10.1.0.1
+
+Edge1:
+ name: Edge1
+ ospf_id: 100
+ domain: homelab.local
+ domain_lookup: false
+ router_id: 10.0.0.11
+
+ interfaces:
+  - name: Loopback0
+    address: 10.0.0.11 255.255.255.255
+    ospf_area: 0
+    status: up
+  - name: GigabitEthernet1
+    mtu: 2000
+    descr: "Border-Gi1"
+    address: 10.1.1.2 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+
+Edge2:
+ name: Edge2
+ ospf_id: 100
+ domain: homelab.local
+ domain_lookup: false
+ router_id: 10.0.0.12
+ 
+ interfaces:
+  - name: Loopback0
+    address: 10.0.0.12 255.255.255.255
+    ospf_area: 0
+    status: up
+  - name: GigabitEthernet1
+    mtu: 2000
+    descr: "Border-Gi1"
+    address: 10.1.1.6 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+
+CP:
+ name: CP
+ ospf_id: 100
+ domain: homelab.local
+ domain_lookup: false
+ router_id: 10.0.0.100
+
+ interfaces:
+  - name: Loopback0
+    address: 10.0.0.100 255.255.255.255
+    ospf_area: 0
+    status: up
+  - name: GigabitEthernet3   
+    mtu: 2000
+    descr: "Border-Gi3"
+    address: 10.1.1.10 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
