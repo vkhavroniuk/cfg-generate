@@ -1,0 +1,171 @@
+RR1:
+ name: RR1
+ ospf_id: 100
+ domain: mpls.lab
+ domain_lookup: false
+ router_id: 10.10.10.100
+ mpls: enabled
+
+ interfaces:
+  - name: Loopback0
+    address: 10.10.10.100 255.255.255.255
+    ospf_area: 0
+    status: up
+  - name: GigabitEthernet1 
+    mtu: 9000
+    descr: "P1"
+    address: 10.0.0.14 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+    mpls: enabled
+
+PE1:
+ name: PE1
+ ospf_id: 100
+ domain: mpls.lab
+ domain_lookup: false
+ router_id: 10.10.10.5
+ mpls: enabled
+
+ interfaces:
+  - name: Loopback0
+    address: 10.10.10.5 255.255.255.255
+    ospf_area: 0
+    status: up
+  - name: GigabitEthernet1 
+    mtu: 9000
+    descr: "P1"
+    address: 10.0.0.6 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+    mpls: enabled
+  - name: GigabitEthernet2 
+    mtu: 9000
+    descr: "P8"
+    address: 10.0.0.24 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+    mpls: enabled
+
+PE3:
+ name: PE3
+ ospf_id: 100
+ domain: mpls.lab
+ domain_lookup: false
+ router_id: 10.10.10.7
+ mpls: enabled
+
+ interfaces:
+  - name: Loopback0
+    address: 10.10.10.7 255.255.255.255
+    ospf_area: 0
+    status: up
+  - name: GigabitEthernet1 
+    mtu: 9000
+    descr: "P2"
+    address: 10.0.0.30 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+    mpls: enabled
+  - name: GigabitEthernet2 
+    mtu: 9000
+    descr: "P7"
+    address: 10.0.0.42 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+    mpls: enabled
+
+P1:
+ name: P1
+ ospf_id: 100
+ domain: homelab.local
+ domain_lookup: false
+ router_id: 10.10.10.1
+
+ interfaces:
+  - name: Loopback0
+    address: 10.10.10.1 255.255.255.255
+    ospf_area: 0
+    status: up
+  - name: GigabitEthernet1
+    mtu: 9000
+    descr: "P2"
+    address: 10.0.0.1 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+    mpls: enabled
+  - name: GigabitEthernet2
+    mtu: 9000
+    descr: "RR1"
+    address: 10.0.0.13 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+    mpls: disabled
+  - name: GigabitEthernet3
+    mtu: 9000
+    descr: "PE1"
+    address: 10.0.0.5 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+    mpls: enabled
+  - name: GigabitEthernet4
+    mtu: 9000
+    descr: "PE2"
+    address: 10.0.0.9 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+    mpls: enabled
+
+P2:
+ name: P2
+ ospf_id: 100
+ domain: homelab.local
+ domain_lookup: false
+ router_id: 10.10.10.2
+
+ interfaces:
+  - name: Loopback0
+    address: 10.10.10.2 255.255.255.255
+    ospf_area: 0
+    status: up
+  - name: GigabitEthernet1
+    mtu: 9000
+    descr: "P1"
+    address: 10.0.0.2 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+    mpls: enabled
+  - name: GigabitEthernet2
+    mtu: 9000
+    descr: "P7"
+    address: 10.0.0.33 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+    mpls: disabled
+  - name: GigabitEthernet3
+    mtu: 9000
+    descr: "PE3"
+    address: 10.0.0.29 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+    mpls: enabled
+  - name: GigabitEthernet4
+    mtu: 9000
+    descr: "PE4"
+    address: 10.0.0.37 255.255.255.252
+    ospf_area: 0
+    ospf_mode: active
+    status: up
+    mpls: enabled

@@ -2,12 +2,16 @@ conf t
 hostname {{ name }}
 ip domain-name {{domain}}
 {% if not domain_lookup %}no {% endif %}ip domain-lookup
+{% if mpls=='enabled' %}
+mpls ip
+mpls ldp router-id loopback0 force
+{% endif %}
 
 router ospf {{ospf_id}}
-router-id {{ router_id }}
-passive-interface default
+ router-id {{ router_id }}
+ passive-interface default
 {% for interface in interfaces %}
-{% if interface.ospf_mode=='active' %}no passive-interface {{interface.name}}
+{% if interface.ospf_mode=='active' %} no passive-interface {{interface.name}}
 {% endif %}
 {% endfor %}
 
@@ -29,7 +33,13 @@ interface {{ interface.name }}
  {% endif %}
 {% endif %}
 {% if interface.status=='up' %} no{% endif %} shutdown
+ {% if 'mpls' in interface %}
+  {% if interface.mpls=='enabled' %}
+ mpls ip
+  {% endif %}
+ {% endif %}
 {% endfor %}
+
 
 {% for route in routes %}
 ip route {{route.route}}
